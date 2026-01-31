@@ -11,7 +11,7 @@ export async function fetchBooks() {
     
   console.log('am i trying to fetch the book detail')
   
-  const res = await fetch('http://localhost:3000/books', {
+  const res = await fetch('http://localhost:3000/api/books', {
     method: "GET", // always get fresh data
     credentials: "include"
   });
@@ -38,7 +38,7 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the BookDetail')
   
-  const res = await fetch(`http://localhost:3000/books/${bookId}`, {
+  const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
     method: "GET",
     credentials: "include"
   });
@@ -59,7 +59,7 @@ export async function fetchAllGenres( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-  const res = await fetch(`http://localhost:3000/genres/all-genres`, {
+  const res = await fetch(`http://localhost:3000/api/genres/all-genres`, {
     method: "GET",
     credentials: "include"
     
@@ -79,7 +79,7 @@ export async function fetchReview({bookID}:{bookID: string}) {
   // Don't do this in production :)
   console.log('am i trying to fetch the reviews')
   
-  const res = await fetch(`http://localhost:3000/reviews/books/${bookID}`, {
+  const res = await fetch(`http://localhost:3000/api/reviews/books/${bookID}`, {
     method: "GET",
     credentials: "include"
   });
@@ -100,7 +100,7 @@ export async function fetchAllReviews() {
   // Don't do this in production :)
   console.log('am i trying to fetch the reviews')
   
-  const res = await fetch(`http://localhost:3000/reviews`, {
+  const res = await fetch(`http://localhost:3000/api/reviews`, {
     method: "GET",
     credentials: "include"
   });
@@ -117,7 +117,7 @@ export async function fetchAllReviews() {
 }
 
 export async function addtoShelf(bookId: string) {
-  const res = await fetch("http://localhost:3000/profiles/add-to-Shelf", {
+  const res = await fetch("http://localhost:3000/api/profiles/add-to-Shelf", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -135,7 +135,7 @@ export async function fetchShelfBooks( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-  const res = await fetch(`http://localhost:3000/profiles/get-shelf`, {
+  const res = await fetch(`http://localhost:3000/api/profiles/get-shelf`, {
     method: "GET",
     credentials: "include"
   });
@@ -155,7 +155,7 @@ export async function fetchDashboardCounts( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-  const res = await fetch(`http://localhost:3000/profiles/count`, {
+  const res = await fetch(`http://localhost:3000/api/profiles/count`, {
     method: "GET",
     credentials: "include"
   });
@@ -174,7 +174,7 @@ export async function fetchAllUsers( ) {
   // Don't do this in production :)
   console.log('am i trying to fetch the genres')
   
-  const res = await fetch(`http://localhost:3000/profiles/all-users`, {
+  const res = await fetch(`http://localhost:3000/api/profiles/all-users`, {
     method: "GET",
     credentials: "include"
   });
