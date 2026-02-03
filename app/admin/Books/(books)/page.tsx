@@ -4,15 +4,17 @@ import { TrashIcon, EyeIcon, StarIcon, UserIcon, PencilIcon } from '@heroicons/r
 import { useQuery } from '@tanstack/react-query';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import {fetchBooks} from "@/app/lib/fetching-data"
-import { bookDetailSchema } from '@/app/lib/definition';
+import { fullbooksResponse } from '@/app/lib/definition';
 
-export default function Page({ placeholder }: { placeholder: string }) {
+export default function Page() {
   const queryClient = useQueryClient()
 
-  const { data: books, isLoading, error } = useQuery<bookDetailSchema[], Error>({
-      queryKey: ["books"],
-      queryFn: fetchBooks,
+  const { data: res, isLoading, error } = useQuery<fullbooksResponse, Error>({
+    queryKey: ["books"],
+    queryFn: fetchBooks,
   });
+
+  const books = res?.data ?? [];
 
   const deleteBookMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -47,20 +49,23 @@ export default function Page({ placeholder }: { placeholder: string }) {
       
       <tbody >
         {
-          books?.map((book)=>(
+          books.map((book)=>(
             
             <tr key={book.id} className='text-sm text-gray-400'>
               <td className="px-4 py-2 text-center">
                 <p className="">{book.name}</p>
               </td>
               <td className=" px-4 py-2 text-center ">
-                <p className="flex flex-wrap justify-center gap-1">{book.authors.map((a, i)=><p key={i}>{a.name}{i < book.authors.length  - 1 ? ",": ""}</p>)}</p>
+                <p className="flex flex-wrap justify-center gap-1">
+                  {book.authors.map((a, i) => <span key={i}>{a.name}{i < book.authors.length - 1 ? "," : ""}</span>)}</p>
               </td>
               <td className="px-4 py-2  text-center">
-                <p className="flex flex-wrap justify-center gap-1">{book.genres.map((g, i)=><p key={i} className='' >{g.name}{i < book.genres.length - 1 ? "," : ""}</p>)}</p>
+                <p className="flex flex-wrap justify-center gap-1">
+                  {book.genres.map((g, i) => <span key={i} className='' >{g.name}{i < book.genres.length - 1 ? "," : ""}</span>)}
+                </p>
               </td>
               <td className=" px-4 py-2 text-center">
-                <p className="|">{book.status.map(s=>s.name)}</p>
+                <p className="|">{book.status.name}</p>
               </td>
               <td className="px-4 py-2 ">
                 <div className="flex whitespace-nowrap gap-2 justify-center ">

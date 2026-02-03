@@ -67,7 +67,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen flex-col justify-center items-center bg-black/20">
-      <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-gradient-to-tr from-black-800 to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
+      <div className="relative font-gantari min-w-[280px] sm:min-w-[355px] flex flex-col items-center gap-5 bg-linear-to-tr from-black-800 to-[#0AA0A1]/40 px-6 sm:px-8 py-10 rounded-lg border-[0.25]">
         <button
           onClick={hide}
           className="absolute top-2 right-4 text-2xl text-white hover:text-red-600"

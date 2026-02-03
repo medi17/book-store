@@ -1,22 +1,12 @@
 
-
 type Author = {
-    id: string;
-    name: string;
-  };
-export type fetchBook = {
-    id: string
-    name: string;
-    authors: Author[];
-    image: string;
-    rating: number;
-    category: string;
-    published: number;
-};
-export interface topRatedbook {
   id: string;
   name: string;
-  author: string;
+}
+export type fetchBook = {
+  id: string
+  name: string;
+  authors: Author[];
   image: string;
   rating: number;
   category: string;
@@ -46,93 +36,99 @@ export type BetterAuthSession = {
 };
 
 export type UserType = {
-    id: string;
-    name: string;
-    email: string;
-    emailVerified: boolean;
-    image?: string | null;
-    createdAt: Date; // or Date if parsed
-    updatedAt: Date; // or Date if parsed
-  };
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  image?: string | null;
+  createdAt: Date; // or Date if parsed
+  updatedAt: Date; // or Date if parsed
+};
 
-  export interface Authors {
-    id: string;
-    name: string;
-  }
-  
-  export interface Genre {
-    id: string;
-    name: string;
-  }
-  
-  export interface Translator {
-    id: string;
-    name: string;
-  }
-  
-  export interface Publisher {
-    id: string;
-    name: string;
-  }
-  
-  export interface Language {
-    id: string;
-    name: string;
-  }
-  export interface Status{
-    id: string;
-    name: string;
-  }
-  export interface TOC {
-    id: string;
-    chapterName: string;
-    chapterNum: number;
-    sortOrder: number;
-  }
-  
-  export interface ReviewAndRating {
-    userId: string;
-    userName: string;
-    userRole?: string | null;
-    rateValue: number;
-    reviewText?: string | null;
-    reviewTextCreatedTime: string;
-    bookName: string;
-  }
-  export interface book {
-    id: string;
-    image: string;
-    name: string;
-    description: string;
-    summary?: string | null;
-    editionNumbers: number;
-    isbn?: string | null;
-    firstPublishedDate: string; // parse to Date if needed
-    statusId: string;
-  }
+export interface Authors {
+  id: string;
+  name: string;
+}
 
+export interface Genre {
+  id: string;
+  name: string;
+}
 
+export interface Translator {
+  id: string;
+  name: string;
+}
+
+export interface Publisher {
+  id: string;
+  name: string;
+}
+  
+export interface Language {
+  id: string;
+  name: string;
+}
+
+export interface TOC {
+  id: string;
+  chapterName: string;
+  chapterNum: number;
+  sortOrder: number;
+}
+  
+export interface ReviewAndRating {
+  userId: string;
+  userName: string;
+  userRole?: string | null;
+  rateValue: number;
+  reviewText?: string | null;
+  reviewTextCreatedTime: string;
+  bookName: string;
+}
+export interface book {
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  summary?: string | null;
+  editionNumbers: number;
+  isbn?: string | null;
+  firstPublishedDate: string; // parse to Date if needed
+  statusId: string;
+}
+
+export interface fullbooksResponse{
+  page: number
+  limit: number
+  total: number
+  data: bookDetailSchema[]
+}
+
+export type statusResult = {
+  id: string;
+  name: string | null;
+}
 export interface bookDetailSchema {
-    id: string;
-    image: string;
-    name: string;
-    description: string;
-    summary?: string | null;
-    editionNumbers: number;
-    isbn?: string | null;
-    firstPublishedDate: string; // parse to Date if needed
-    statusId: string;
-  
-    authors: Authors[];
-    genres: Genre[];
-    translators: Translator[];
-    publishers: Publisher[];
-    languages: Language[];
-    status: Status[];
-    toc: TOC[];
-    reviewsAndRatings: ReviewAndRating[];
-    averageRating: number;
-  }
+  id: string;
+  image: string;
+  name: string;
+  description: string;
+  summary?: string | null;
+  editionNumbers: number;
+  isbn?: string | null;
+  firstPublishedDate: string;
+
+  authors: Authors[];
+  genres: Genre[];
+  status: statusResult
+  translators: Translator[];
+  publishers: Publisher[];
+  languages: Language[];
+  toc: TOC[];
+  reviewsAndRatings: ReviewAndRating[];
+  averageRating: number;
+}
 
   
 export type Book = {
@@ -182,3 +178,28 @@ export type User = {
   createdAt: string; // ISO 8601 date-time
   updated_at: string; // ISO 8601 date-time
 };
+
+// export type recentBook = {
+//   id: string
+//   name: string
+//   image: string
+//   avgRating: number
+//   authors: Authors[]
+//   genres:Genre[]
+// }
+
+// export type recentBooks =  recentBook[]
+
+// export type topRatedBook = {
+//   id: string
+//   name: string
+//   image: string
+//   avgRating: number
+//   authors: Authors[]
+//   genres:Genre[]  
+// }
+
+// export type topRatedBooks =  topRatedBook[]
+
+
+export type conditionedBooks = bookDetailSchema[]

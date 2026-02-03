@@ -1,23 +1,31 @@
-
-import {Book} from './definition';
-import { Genre } from './definition';
-import { includes } from 'zod';
+import { fullbooksResponse, conditionedBooks} from "../lib/definition";
 
 
-
-export async function fetchBooks() {
-    // Artificially delay a response for demo purposes.
-    // Don't do this in production :)
-    
-  console.log('am i trying to fetch the book detail')
+export async function fetchBooks(): Promise<fullbooksResponse> {
   
   const res = await fetch('http://localhost:3000/api/books', {
-    method: "GET", // always get fresh data
+    method: "GET",
     credentials: "include"
   });
 
   if (!res.ok) {
     console.error("Failed to fetch books", res.status, res.statusText);
+    return { page: 1, limit: 10, total: 1, data: [] };
+  }
+
+  const data = await res.json();
+  return data; 
+}
+
+export async function fetchRecentlyPublished():Promise<conditionedBooks> {
+  
+  const res = await fetch('http://localhost:3000/api/books/recently', {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch recently published books", res.status, res.statusText);
     return [];
   }
 
@@ -25,17 +33,25 @@ export async function fetchBooks() {
   return data; 
 }
 
-const book = await fetchBooks()
-const topRatedbook = await fetchBooks()
+export async function fetchTopRated():Promise<conditionedBooks> {
+  
+  const res = await fetch('http://localhost:3000/api/books/top-rated', {
+    method: "GET",
+    credentials: "include"
+  });
 
-export const books = book
-export const topRatedbooks = topRatedbook
+  if (!res.ok) {
+    console.error("Failed to fetch top rated books", res.status, res.statusText);
+    return [];
+  }
+
+  const data = await res.json();
+  return data; 
+}
 
 //fetch book detail
 
 export async function fetchBookDetail({bookId}: { bookId: string } ) {
-  // Artificially delay a response for demo purposes.
-  // Don't do this in production :)
   console.log('am i trying to fetch the BookDetail')
   
   const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
