@@ -2,7 +2,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { conditionedBooks, bookDetailSchema} from "../lib/definition";
 import "../globals.css";
-import { fetchBooks } from "@/app/lib/fetching-data";
 
 import Link from "next/link";
 import {fetchRecentlyPublished, fetchTopRated } from "@/app/lib/fetching-data";

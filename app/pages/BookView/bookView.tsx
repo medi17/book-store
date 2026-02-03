@@ -12,11 +12,8 @@ import { addtoShelf } from "@/app/lib/fetching-data";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 
-export default function BookView({
-  bookDetail,
-}: {
-  bookDetail: bookDetailSchema;
-}) {
+export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema; }) {
+  
   const addToShelf = useShelfStore((state) => state.addToShelf);
   const queryClient = useQueryClient();
 
@@ -30,9 +27,11 @@ export default function BookView({
     },
     onError: (error) => console.error("❌ Upload failed:", error),
   });
+
   function handleAddtoShelf() {
     mutation.mutate({ bookId: bookDetail.id });
   }
+  
   return (
     <div className="container ">
       <div className="flex flex-col md:flex-row mt-10  xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  md:mx-5  ">
@@ -78,7 +77,7 @@ export default function BookView({
               <span className="flex gap-3">
                 <span className="flex">
                   {[...Array(5)].map((_, i) => (
-                    <StarIcon key={i} className="w-[24px] h-[24px]" />
+                    <StarIcon key={i} className="w-6 h-6" />
                   ))}
                 </span>
                 <span className="flex sm:flex-col w-fit text-[7px] lg:text-[12px]">
