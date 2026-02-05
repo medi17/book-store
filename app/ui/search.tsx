@@ -22,8 +22,8 @@ export default function Search({ placeholder, isLoading }: { placeholder: string
     replace(`${pathname}?${params.toString()}`);
   }, 3000)
   return (
-    <div className=" flex gap-4 w-full justify-center  ">
-      <div className="relative  overflow-hidden p-0.5 ">
+    <div className="flex gap-4 w-full justify-center">
+      <div className="relative  overflow-hidden p-0.5">
         {isLoading &&(
           <div className='absolute inset-0 shimmer pointer-events-none rounded-md min-w-full h-full'></div>)
           }
@@ -32,17 +32,17 @@ export default function Search({ placeholder, isLoading }: { placeholder: string
           Search
         </label>
         <input
-          className={`block rounded-md py-[4px] sm:py-[6px] pl-3 xs:pl-10 text-sm  placeholder:text-gray-500 w-[212px] sm:h-[34px] sm:max-w-[450px]  md:w-[850px] outline-2 ${isLoading ? '': 'focus:outline-[#0AA1A1]'}`}
+          className={`block rounded-md py-1 sm:py-1.5 pl-3 xs:pl-10 text-xs sm:text-sm  placeholder:text-gray-500 sm:h-[34px] w-[150px] xs:w-[300px] sm:w-[450px]  md:w-[650px] outline-2 ${isLoading ? '': 'focus:outline-[#0AA1A1]'}`}
           placeholder={placeholder}
           onChange={(e)=>{
             handleSearch(e.target.value)
           }}
           defaultValue={searchParams.get('query')?.toString()}
         />
-        <MagnifyingGlassIcon className="absolute right-3 xs:left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500" />
+        <MagnifyingGlassIcon className="absolute right-3 xs:left-3 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-gray-500" />
         </div>
       </div>
-      <button className="hidden xs:block fancyBorder rounded-full  pl-5 pr-5  ">search</button>
+      <button className="block text-xs sm:text-sm fancyBorder rounded-full px-2 sm:px-5 cursor-pointer">search</button>
       
     </div>
   );

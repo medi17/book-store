@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function BookoftheMonth() {
   return (
-    <div className="mt-12 flex flex-col p-2 md:p-0 md:flex-row me:w-full  me:justify-center  gap-5 me:gap-32 ">
+    <div className="mt-12 flex flex-col p-2 md:p-0 sm:flex-row me:w-full  me:justify-center  gap-5 me:gap-32 ">
       <div className="w-full me:w-fit flex justify-center md:justify-start ">
         <Image
           src="/BOTM.jpg"
@@ -14,7 +14,7 @@ export default function BookoftheMonth() {
           priority
         />
       </div>
-      <div className="flex flex-col justify-center md:justify-start items-center md:items-start gap-3 max-w-[460px] me:max-w-[550px]">
+      <div className="flex flex-col justify-center sm:justify-start items-center sm:items-start gap-3 max-w-[460px] md:max-w-[550px]">
         <h1 className="text-center  text-gray-600 text-[18px]">
           Book of the month
         </h1>

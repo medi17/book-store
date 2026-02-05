@@ -17,7 +17,7 @@ export default function HeaderTransite() {
 
   return (
     <>
-      <header className="flex p-4  w-full h-[60px] justify-between items-center bg-black">
+      <header className="flex p-4  w-full h-[60px] justify-between items-center bg-black lg:bg-black/20 lg:backdrop-blur-md lg:sticky lg:top-0 lg:z-50 transition-all duration-300 lg:px-15 md:px-10 px-5">
         <div className="md:hidden flex justify-between w-full">
           <h1 className="font-bold text-3xl">Logo</h1>
           <button onClick={handleMenuVisbility}>

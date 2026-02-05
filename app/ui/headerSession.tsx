@@ -33,14 +33,14 @@ export default function HeaderSession() {
           <Link href="/pages/Myshelf">My shelf</Link>
           <p className="font-bold text-3xl flex items-center">|</p>
           <Link className="text-cyan-400" href="/pages/Profile">
-            {user.name}
+            {user.name} 
           </Link>
         </div>
       ) : (
-        <div className="hidden md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
-          <button onClick={showLogin}>Login</button>
+        <div className="hidden font-black md:flex gap-3 md:gap-6  items-center font-gantari text-lg">
+          <button className="cursor-pointer" onClick={showLogin}>Login</button>
           <p className="font-bold text-3xl flex items-center">|</p>
-          <button className="text-cyan-400" onClick={showSignup}>
+          <button className="text-cyan-400 cursor-pointer" onClick={showSignup}>
             Register
           </button>
         </div>
