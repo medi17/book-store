@@ -70,6 +70,13 @@ body {
 .Cyan{
   color: #0AA1A1
 }
+.fancyBorderForX {
+  border: 2px solid transparent; 
+  border-radius: 28px;
+  background:
+    linear-gradient(#000, #000) padding-box,
+    linear-gradient(to right, #238E8E 0%, #FFFFFF 30%, #FFFFFF 70%, #238E8E 100%) border-box;
+}
 .fancyBorder {
   border: 2px solid transparent; 
   border-radius: 8px;
@@ -79,7 +86,7 @@ body {
 }
 .fancyBorderForHover{
   border: 2px solid transparent; 
-  border-radius: 8px; 
+  border-radius: 0px; 
 }
 .fancyBorderForHover:hover{
   background:
