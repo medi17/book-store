@@ -7,7 +7,7 @@ export const useSearchBooks = (query: string) => {
     queryFn: async () => {
       if (!query) return [];
 
-      const res = await fetch(`/api/books/search?q=${encodeURIComponent(query)}`, {
+      const res = await fetch(`http://localhost:3000/api/books/search?q=${encodeURIComponent(query)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

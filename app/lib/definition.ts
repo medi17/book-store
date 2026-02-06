@@ -179,27 +179,14 @@ export type User = {
   updated_at: string; // ISO 8601 date-time
 };
 
-// export type recentBook = {
-//   id: string
-//   name: string
-//   image: string
-//   avgRating: number
-//   authors: Authors[]
-//   genres:Genre[]
-// }
+export type generalSearchResults = {
+  query:string
+  page:number
+  limit:number
+  total: number
+  data: bookDetailSchema[],
+}
 
-// export type recentBooks =  recentBook[]
-
-// export type topRatedBook = {
-//   id: string
-//   name: string
-//   image: string
-//   avgRating: number
-//   authors: Authors[]
-//   genres:Genre[]  
-// }
-
-// export type topRatedBooks =  topRatedBook[]
 
 
 export type conditionedBooks = bookDetailSchema[]
