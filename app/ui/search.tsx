@@ -3,8 +3,17 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useDebouncedCallback } from 'use-debounce';
 import '../globals.css'
+import { Dispatch, SetStateAction } from 'react';
 
-export default function Search({ placeholder, isLoading }: { placeholder: string; isLoading: boolean }) {
+export default function Search({
+   placeholder, 
+   isLoading, 
+   setSearchOpen 
+  }: { 
+    placeholder: string; 
+    isLoading: boolean; 
+    setSearchOpen:Dispatch<SetStateAction<boolean>> 
+  }) {
   
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -32,6 +41,7 @@ export default function Search({ placeholder, isLoading }: { placeholder: string
           Search
         </label>
         <input
+          onFocus={() => setSearchOpen(true)}
           className={`block rounded-md py-1 sm:py-1.5 pl-3 xs:pl-10 text-xs sm:text-sm  placeholder:text-gray-500 sm:h-[34px] w-[150px] xs:w-[300px] sm:w-[450px]  md:w-[650px] outline-2 ${isLoading ? '': 'focus:outline-[#0AA1A1]'}`}
           placeholder={placeholder}
           onChange={(e)=>{
