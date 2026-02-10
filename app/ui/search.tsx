@@ -20,16 +20,19 @@ export default function Search({
   const { replace } = useRouter();
 
   const handleSearch = useDebouncedCallback((term) => {
-    console.log(`serching for: ${term}`); 
+
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
+
     if (term) {
       params.set('q', term);
     } else {
       params.delete('q');
     }
+    
     replace(`${pathname}?${params.toString()}`);
   }, 3000)
+
   return (
     <div className="flex gap-4 w-full justify-center">
       <div className="relative  overflow-hidden p-0.5">
