@@ -1,6 +1,6 @@
 'use client'
 
-import { allGenres, genresWithbooks } from '../../lib/definition';
+import { allGenres } from '../../lib/definition';
 import '../../globals.css';
 import SearchForGenres from './searchForGenres';
 import BrowseGenres from '@/app/pages/genre/browseGenres';
@@ -12,23 +12,23 @@ import GenreCategory from './genreCatagory';
 
 export default function Genre() {
     
-    const {data: genresWbooks, isLoading, error} = useQuery<allGenres, Error>({
-        queryKey:["genres"],
+    const {data: genresWithBooks, isLoading, error} = useQuery<allGenres, Error>({
+        queryKey:["genresWithBooks"],
         queryFn: fetchAllGenres
     })
 
-    const allGeners = genresWbooks ?? []
+    const allGeners = genresWithBooks ?? []
 
     return (
-        <div className="w-fit mx-auto mt-5">
-            <h2 className="text-2xl font-bold mt-8 mx-6 text-[#238E8E] ">Genres</h2>
-            <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-8 w-full p-4 sm:w-fit">
+        <div className="w-fit mx-auto">
+            <div className="flex flex-col lg:flex-row lg:justify-between lg:gap-10 w-full p-4 sm:w-fit">
                 <div className={"font-gabarito flex flex-col w-full lg:w-fit"}>
+                    <h2 className="text-2xl font-bold mb-6 text-[#238E8E]">Genres</h2>
                     <SearchForGenres placeholder="Search..." />
                     <div>
                         { 
-                            allGeners.map((genres: genresWithbooks, i) => (
-                                <GenreCategory key= {i} genres = {genres}/>
+                            allGeners.map((genres) => (
+                                <GenreCategory key= {genres.genreId} genres = {genres}/>
                             ))
                         }
                     </div>
