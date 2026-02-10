@@ -151,12 +151,6 @@ export type Book = {
   reviewsAndRatings: ReviewAndRating[];
   averageRating: number;
 }
-export interface Genre {
-  id: string;           
-  name: string;              
-  description?: string;      
-  books: Book[];             
-}
 
 export interface Review {
   id: string;          // UUID of the review
@@ -179,14 +173,52 @@ export type User = {
   updated_at: string; // ISO 8601 date-time
 };
 
+export type partialBookSchema ={
+  id: string;
+  image: string;
+  name: string;
+
+  authors: Authors[];
+  genres: Genre[];
+  status: statusResult  
+  averageRating: number;
+}
+
 export type generalSearchResults = {
   query:string
   page:number
   limit:number
   total: number
-  data: bookDetailSchema[],
+  data: partialBookSchema[],
 }
 
 
 
-export type conditionedBooks = bookDetailSchema[]
+export type conditionedBooks = partialBookSchema[]
+
+export type genreInfo = {
+  genreId: string;
+  genreName: string;
+}
+
+export type genreDetails = genreInfo[]
+
+export type fullGenreRespnse = {
+  genreId: string;
+  genreName: string;
+  genreDescription: string | null;
+  pages: number;
+  bookLimits: number;
+  total: number;
+  books: partialBookSchema[]
+}
+
+export type genresWithbooks = {
+  genreId: string;
+  genreName: string; 
+  books: partialBookSchema[] 
+}
+
+export type allGenres = genresWithbooks[]
+
+export type genreList = Genre[]
