@@ -74,7 +74,7 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
               <p className="text-lg">
                 {bookDetail.authors.map((author) => author.name)}
               </p>
-              <span className="flex gap-3">
+              <div className="flex gap-3">
                 <span className="flex">
                   {[...Array(5)].map((_, i) => (
                     <StarIcon key={i} className="w-6 h-6" />
@@ -88,7 +88,7 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
                     {bookDetail.reviewsAndRatings?.length ?? 0} reviews
                   </p>
                 </span>
-              </span>
+              </div>
             </div>
             <div className="flex flex-col gap-8">
               <div className="">
