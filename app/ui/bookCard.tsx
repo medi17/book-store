@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { bookDetailSchema } from "../lib/definition";
+import { partialBookSchema } from "../lib/definition";
 
 
 
-export default function BookCard({book}: {book: bookDetailSchema}) {
+export default function BookCard({book}: {book: partialBookSchema}) {
     return(
-        <div key={book.id} className=" shadow-md shrink-0 w-30 h-62 sm:w-40 sm:h-75 md:w-[220px] md:h-100">
+        <div key={book.id} className={`shadow-md shrink-0 w-30 h-62 md:h-100 sm:w-40 sm:h-75 md:w-[220px]`}>
             <div key={book.id} className="relative group shadow-md fancyBorderForHover">
                 <img
                     src={book.image}
