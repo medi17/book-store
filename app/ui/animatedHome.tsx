@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import IntroText from "@/app/ui/introText";
 import Search from "@/app/ui/search";
-import { bookDetailSchema, generalSearchResults } from "../lib/definition";
+import { partialBookSchema, generalSearchResults } from "../lib/definition";
 import RecentlyPublishedBooks from "./recentlypub-books";
 import BookoftheMonth from "./BOTM"
 import BookCard from "./bookCard";
@@ -71,8 +71,8 @@ export default function AnimatedHome({ isLoading, q, data }: searchProps) {
             {
               q ? (
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 ">
-                  {books.map((book: bookDetailSchema) => (
-                      <BookCard book={book} key={book.id} />
+                  {books.map((book: partialBookSchema) => (
+                      <BookCard className="" book={book} key={book.id} />
                     )
                   )}
                 </div>
