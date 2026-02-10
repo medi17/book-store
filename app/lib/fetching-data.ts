@@ -1,4 +1,4 @@
-import { fullbooksResponse, conditionedBooks} from "../lib/definition";
+import { fullbooksResponse, conditionedBooks, allGenres, genreList} from "../lib/definition";
 
 
 export async function fetchBooks(): Promise<fullbooksResponse> {
@@ -70,10 +70,7 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
  
 }
 
-export async function fetchAllGenres( ) {
-  // Artificially delay a response for demo purposes.
-  // Don't do this in production :)
-  console.log('am i trying to fetch the genres')
+export async function fetchAllGenres():Promise<allGenres> {
   
   const res = await fetch(`http://localhost:3000/api/genres/all-genres`, {
     method: "GET",
@@ -82,14 +79,29 @@ export async function fetchAllGenres( ) {
   });
 
   if (!res.ok) {
-    console.error("Failed to fetch genres", res.status, res.statusText);
-    return [];
+    throw new Error('Failed to fetch genres')
   }
 
   const data = await res.json();
-  return data.genres;
- 
+  return data;
 }
+
+export async function fetchGenreList():Promise<genreList> {
+  
+  const res = await fetch(`http://localhost:3000/api/genres/genre-list`, {
+    method: "GET",
+    credentials: "include"
+    
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to fetch genres')
+  }
+
+  const data = await res.json();
+  return data;
+}
+
 export async function fetchReview({bookID}:{bookID: string}) {
   // Artificially delay a response for demo purposes.
   // Don't do this in production :)
