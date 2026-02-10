@@ -109,12 +109,12 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
                   <span className="text-gray-600">Publisher</span>
                   <span className="font-bold">Penguin Classics</span>
                 </p>
-                <p className="text-[16px] flex gap-3">
+                <div className="text-[16px] flex gap-3">
                   <span className="text-gray-600">Genre</span>
                   {bookDetail.genres.map((genre) => (
-                    <span className="font-bold ">{genre.name}</span>
+                    <p key={genre.id} className="font-bold ">{genre.name}</p>
                   ))}
-                </p>
+                </div>
               </div>
             </div>
           </div>

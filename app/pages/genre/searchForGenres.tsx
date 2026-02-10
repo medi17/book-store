@@ -29,7 +29,7 @@ export default function SearchForGenres({ placeholder }: { placeholder: string }
         </label>
 
         <input
-          className={`block rounded-md py-1 sm:py-1.5 pl-3 xs:pl-10 text-sm placeholder:text-gray-500 sm:h-[34px]  w-[150px] xs:w-[300px] sm:w-[450px] outline-2 ${isLoading ? '' : 'focus:outline-[#0AA1A1]'}`}
+          className={`block rounded-md py-1 sm:py-1.5 pl-3 xs:pl-10 text-sm placeholder:text-gray-500 sm:h-[34px]  w-[150px] xs:w-[300px] sm:w-[470px] outline-2 ${isLoading ? '' : 'focus:outline-[#0AA1A1]'}`}
           placeholder={placeholder}
           value={term}
           onChange={(e) => setTerm(e.target.value)}
