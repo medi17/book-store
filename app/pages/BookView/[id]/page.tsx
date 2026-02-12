@@ -1,5 +1,5 @@
-// app/pages/BookView/[id]/page.tsx
 "use client";
+
 import {use } from "react"
 import BookView from "../bookView";
 import { fetchBookDetail } from "@/app/lib/fetching-data";
@@ -50,8 +50,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   if (!bookDetail) return <div>Book not found</div>;
 
   return (
-    <div key={bookDetail.id} className="flex flex-col pb-18 border">
-      <BookView key={bookDetail.id} bookDetail={bookDetail} />
+    <div className="flex flex-col pb-18 border">
+      <BookView bookDetail={bookDetail} />
     </div>
   );
 }

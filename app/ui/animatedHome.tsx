@@ -72,7 +72,7 @@ export default function AnimatedHome({ isLoading, q, data }: searchProps) {
               q ? (
                 <div className="grid grid-cols-2 xs:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 ">
                   {books.map((book: partialBookSchema) => (
-                      <BookCard className="" book={book} key={book.id} />
+                      <BookCard book={book} key={book.id} />
                     )
                   )}
                 </div>

@@ -49,10 +49,9 @@ export async function fetchTopRated():Promise<conditionedBooks> {
   return data; 
 }
 
-//fetch book detail
+// fetch book detail
 
 export async function fetchBookDetail({bookId}: { bookId: string } ) {
-  console.log('am i trying to fetch the BookDetail')
   
   const res = await fetch(`http://localhost:3000/api/books/${bookId}`, {
     method: "GET",
@@ -64,8 +63,7 @@ export async function fetchBookDetail({bookId}: { bookId: string } ) {
     return [];
   }
 
-  const data = await  res.json();
-  console.log("bookDetail:", data)
+  const data = await  res.json()
   return data;
  
 }
