@@ -78,14 +78,15 @@ export interface TOC {
 }
   
 export interface ReviewAndRating {
+  userImage:string
   userId: string;
   userName: string;
-  userRole?: string | null;
-  rateValue: number;
-  reviewText?: string | null;
+  userRole: string | null;
+  rateValue: number | null;
+  reviewText: string;
   reviewTextCreatedTime: string;
-  bookName: string;
 }
+
 export interface book {
   id: string;
   image: string;
@@ -128,6 +129,8 @@ export interface bookDetailSchema {
   toc: TOC[];
   reviewsAndRatings: ReviewAndRating[];
   averageRating: number;
+  reviewCount: number,
+  ratingCount: number,
 }
 
   
