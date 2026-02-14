@@ -1,6 +1,5 @@
 "use client";
 import "@/app/globals.css";
-import { StarIcon } from "@heroicons/react/24/outline";
 import { bookDetailSchema } from "@/app/lib/definition";
 import { useShelfStore } from "@/store/shelfStore";
 import StarRating from "./starRating";
@@ -9,6 +8,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import RatingsAndReviews from "./ratingsAndReviews";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { onlyDate } from "@/app/helper/date";
+import Link from "next/link";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema; }) {
   
@@ -73,18 +75,33 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
               <p className="text-lg">
                 {bookDetail.authors.map((author) => author.name)}
               </p>
-              <div className="flex gap-3 items-baseline">
-                <span className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <StarIcon key={i} className="w-6 h-6" />
-                  ))}
-                </span>
+              <div className="flex gap-3 items-start">
+              
+                {[...Array(5)].map((_, index) => {
+                  const fillPercentage = Math.min( Math.max(bookDetail.averageRating - index, 0), 1) * 100;
+
+                  return (
+                    <div key={index} className="relative w-5">
+                      {/* Empty Star */}
+                      <StarIcon className="w-6 text-gray-300 absolute" />
+
+                      {/* Filled Star */}
+                      <div
+                        className="absolute top-0 left-0 overflow-hidden"
+                        style={{ width: `${fillPercentage}%` }}
+                      >
+                        <StarIcon className="w-6 text-cyan-500" />
+                      </div>
+                    </div>
+                  );
+                })}
+
                 <span className="flex gap-2 w-fit text-[7px] lg:text-[12px]">
                   <p className="text-gray-500">
-                    {bookDetail.reviewsAndRatings?.length ?? 0} ratings
+                    {bookDetail.ratingCount} ratings
                   </p>
                   <p className="text-gray-500">
-                    {bookDetail.reviewsAndRatings?.length ?? 0} reviews
+                    {bookDetail.reviewCount} reviews
                   </p>
                 </span>
               </div>
@@ -99,7 +116,7 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
                 <p className="text-[16px] flex gap-3">
                   <span className="text-gray-600">First Published Date</span>
                   <span className="font-bold">
-                    {bookDetail.firstPublishedDate}
+                    {onlyDate(bookDetail.firstPublishedDate)}
                   </span>
                 </p>
                 <p className="text-[16px] flex gap-3">
@@ -109,7 +126,9 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
                 <div className="text-[16px] flex gap-3">
                   <span  className="text-gray-600">Genre</span>
                   {bookDetail.genres.map((genre) => (
-                    <p key={genre.id} className="font-bold cursor-pointer hover:underline decoration-cyan-500 ">{genre.name}</p>
+                    <Link key={genre.id} href={`/pages/category?id=${encodeURIComponent(genre.id)}`}>
+                      <p key={genre.id} className="font-bold cursor-pointer hover:underline decoration-cyan-500 ">{genre.name}</p>
+                    </Link>
                   ))}
                 </div>
               </div>
