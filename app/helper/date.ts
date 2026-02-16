@@ -15,3 +15,9 @@ export function onlyDate(dateString: string) {
     day: "numeric"
   });
 }
+
+export function onlyYear(dateString: string) {
+  return new Date(dateString).toLocaleString("en-US", {
+    year: "numeric",
+  });
+}
