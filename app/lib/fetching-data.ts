@@ -1,4 +1,4 @@
-import { fullbooksResponse, conditionedBooks, allGenres, genreList} from "../lib/definition";
+import { fullbooksResponse, conditionedBooks, allGenres, genreList, bookDetailSchema} from "../lib/definition";
 
 
 export async function fetchBooks(): Promise<fullbooksResponse> {
@@ -142,24 +142,7 @@ export async function fetchAllReviews() {
  
 }
 
-export async function addtoShelf(bookId: string) {
-  const res = await fetch("http://localhost:3000/api/profiles/add-to-Shelf", {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ bookId }),
-  });
-
-  const data = await res.json();
-  console.log(data); // { message: "Book added to shelf successfully" }
-}
-
-export async function fetchShelfBooks( ) {
-  // Artificially delay a response for demo purposes.
-  // Don't do this in production :)
-  console.log('am i trying to fetch the genres')
+export async function fetchShelfBooks():Promise<bookDetailSchema[]> {
   
   const res = await fetch(`http://localhost:3000/api/profiles/get-shelf`, {
     method: "GET",
@@ -167,12 +150,12 @@ export async function fetchShelfBooks( ) {
   });
 
   if (!res.ok) {
-    console.error("Failed to fetch genres", res.status, res.statusText);
+    console.error("Failed to fetch shelf", res.status, res.statusText);
     return [];
   }
 
   const data = await res.json();
-  return data.genres;
+  return data
  
 }
 
