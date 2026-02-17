@@ -1,39 +1,64 @@
 "use client";
 import "@/app/globals.css";
 import { bookDetailSchema } from "@/app/lib/definition";
-import { useShelfStore } from "@/store/shelfStore";
 import StarRating from "./starRating";
-import { addtoShelf } from "@/app/lib/fetching-data";
+import { addToShelf } from "@/app/lib/mutate-data";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import RatingsAndReviews from "./ratingsAndReviews";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { onlyDate } from "@/app/helper/date";
 import Link from "next/link";
-import { StarIcon } from "@heroicons/react/24/solid";
+import Rating from "@/app/helper/rating";
+import { useQuery } from '@tanstack/react-query';
+import { fetchShelfBooks } from "@/app/lib/fetching-data";
+
+
+
 
 export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema; }) {
   
-  const addToShelf = useShelfStore((state) => state.addToShelf);
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (payload: { bookId: string }) => {
-      return addtoShelf(payload.bookId);
+    mutationFn: addToShelf,
+
+    onMutate: async()=>{
+      await queryClient.cancelQueries({queryKey:["shelf"]})
+
+      const previousShelf = queryClient.getQueryData(["shelf"])
+
+      queryClient.setQueryData(["shelf"], (old:any) => {
+        return [...(old || []), bookDetail];
+      })
+
+      return { previousShelf }
+
     },
-    onSuccess: (data) => {
-      console.log("✅ Book added to shelf:", data);
-      queryClient.invalidateQueries({ queryKey: ["shelf"] }); // maybe invalidate shelf instead of genres
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["shelf"] })
     },
+
     onError: (error) => console.error("❌ Upload failed:", error),
   });
 
   function handleAddtoShelf() {
-    mutation.mutate({ bookId: bookDetail.id });
+    mutation.mutate(bookDetail.id);
   }
 
   const [summaryOpen, setSummaryOpen] = useState<boolean>(false)
   
+  const { data: shelf } = useQuery({
+    queryKey: ['shelf'],
+    queryFn: fetchShelfBooks,
+  });
+
+  const isAlreadyOnShelf = shelf?.some(
+    (book: any) => book.id === bookDetail.id
+  );
+
+
   return (
     <div className="container ">
       <div className="flex flex-col md:flex-row md:gap-15 md:ml-15 md:mt-10 md:mr-10 xs:max-w-[500px] xs:mx-auto sm:max-w-[650px] md:max-w-full  ">
@@ -54,15 +79,22 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
             </p>
             <div className="gap-4 w-full text-xs order-1">
               <button
-                className="fancyBorder w-full mb-2 py-1.5 px-5 cursor-pointer"
+                className={`fancyBorder w-full mb-2 py-1.5 px-5
+                  ${isAlreadyOnShelf ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
+                `}
+                disabled={isAlreadyOnShelf || mutation.isPending}
                 onClick={() => {
-                  addToShelf(bookDetail);
                   handleAddtoShelf();
                 }}
               >
-                Add to shelf
+                {
+                  isAlreadyOnShelf
+                    ? "Book in Shelf"
+                    : mutation.isPending
+                    ? "Adding..."
+                    : "Add to Shelf"
+                }
               </button>
-              <button className="fancyBorder w-full py-1 cursor-pointer">Mark as read</button>
             </div>
           </div>
         </div>
@@ -76,26 +108,7 @@ export default function BookView({ bookDetail }: { bookDetail: bookDetailSchema;
                 {bookDetail.authors.map((author) => author.name)}
               </p>
               <div className="flex gap-3 items-start">
-              
-                {[...Array(5)].map((_, index) => {
-                  const fillPercentage = Math.min( Math.max(bookDetail.averageRating - index, 0), 1) * 100;
-
-                  return (
-                    <div key={index} className="relative w-5">
-                      {/* Empty Star */}
-                      <StarIcon className="w-6 text-gray-300 absolute" />
-
-                      {/* Filled Star */}
-                      <div
-                        className="absolute top-0 left-0 overflow-hidden"
-                        style={{ width: `${fillPercentage}%` }}
-                      >
-                        <StarIcon className="w-6 text-cyan-500" />
-                      </div>
-                    </div>
-                  );
-                })}
-
+                <Rating rateNum={bookDetail.averageRating} className='w-6'/>
                 <span className="flex gap-2 w-fit text-[7px] lg:text-[12px]">
                   <p className="text-gray-500">
                     {bookDetail.ratingCount} ratings
