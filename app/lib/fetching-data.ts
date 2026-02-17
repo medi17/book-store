@@ -1,4 +1,4 @@
-import { fullbooksResponse, conditionedBooks, allGenres, genreList, bookDetailSchema} from "../lib/definition";
+import { fullbooksResponse, conditionedBooks, allGenres, genreList, bookDetailSchema, profile} from "../lib/definition";
 
 
 export async function fetchBooks(): Promise<fullbooksResponse> {
@@ -120,11 +120,25 @@ export async function fetchReview({bookID}:{bookID: string}) {
   return data;
  
 }
+export async function fetchRate(bookId: string):Promise<number> {
+  
+  const res = await fetch(`http://localhost:3000/api/ratings/rate-of/${bookId}`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch rate", res.status, res.statusText);
+    return 0;
+  }
+
+  const data = await res.json();
+
+  return data;
+ 
+}
 
 export async function fetchAllReviews() {
-  // Artificially delay a response for demo purposes.
-  // Don't do this in production :)
-  console.log('am i trying to fetch the reviews')
   
   const res = await fetch(`http://localhost:3000/api/reviews`, {
     method: "GET",
@@ -191,6 +205,22 @@ export async function fetchAllUsers( ) {
   if (!res.ok) {
     console.error("Failed to fetch counts", res.status, res.statusText);
     return [];
+  }
+
+  const data = await res.json();
+  return data;
+}
+
+export async function fetchUserProfile({userId}: {userId: string}):Promise<profile> {
+
+  const res = await fetch(`http://localhost:3000/api/profiles/${userId}`, {
+    method: "GET",
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    console.error("Failed to fetch counts", res.status, res.statusText);
+    throw new Error(`Failed to fetch profile: ${res.status} ${res.statusText}`);
   }
 
   const data = await res.json();
