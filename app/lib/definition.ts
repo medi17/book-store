@@ -225,3 +225,16 @@ export type genresWithbooks = {
 export type allGenres = genresWithbooks[]
 
 export type genreList = Genre[]
+
+export type profile ={
+  id: string;
+  userId: string;
+  roleId: string;
+  dateOfBirth: string | null;
+  phoneNumber: string | null;
+  country: string | null;
+  city: string | null;
+  postalCode: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
